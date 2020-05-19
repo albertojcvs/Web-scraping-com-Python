@@ -2,19 +2,17 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from time import sleep
 
+def getTrendTopics(trendingTopicsHTML):
 
-def getTrendTopics(trendTopicsHTML):
+    trendingTopicsList = []
 
-    trendTopicsList = []
+    soup = BeautifulSoup(trendingTopicsHTML, 'html.parser')
 
-    soup = BeautifulSoup(trendTopicsHTML, 'html.parser')
+    for topic in soup.find_all('div', dir='ltr'):
+        if topic.span != None:
+            trendingTopicsList.append(topic.span.get_text())
 
-    for trend in soup.find_all('div', dir='ltr'):
-        if trend.span != None:
-            trendTopicsList.append(trend.span.get_text())
-            # print(trend.span.get_text())
-
-    return  trendTopicsList
+    return  trendingTopicsList
 
 
 url = 'https://twitter.com/explore'
@@ -25,13 +23,11 @@ sleep(8)
 driver.find_element_by_xpath('//a[@href="/explore/tabs/tab_1"]').click()
 
 sleep(5)
-trendTopicsHTML = driver.find_element_by_xpath(
+trendingTopicsHTML = driver.find_element_by_xpath(
     '//div[@aria-label="Timeline: Explorar"]').get_attribute('outerHTML')
 driver.quit()
 
-trendTopicsList = getTrendTopics(trendTopicsHTML)
+trendingTopicsList = getTrendTopics(trendingTopicsHTML)
 
-
-for trend in trendTopicsList:
-    print(trend)
-# getTrendTopics(trendTopicsHTML)
+for topic in trendingTopicsList:
+    print(topic)
