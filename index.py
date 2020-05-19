@@ -14,7 +14,7 @@ def getTrendTopics(trendTopicsHTML):
             trendTopicsList.append(trend.span.get_text())
             # print(trend.span.get_text())
 
-    return trendTopicsList
+    return  trendTopicsList
 
 
 url = 'https://twitter.com/explore'
