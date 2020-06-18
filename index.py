@@ -7,13 +7,13 @@ def getTwitterTrendingTopics():
     url = 'https://twitter.com/explore'
     driver.get(url)
     sleep(8)
-
     driver.find_element_by_xpath('//a[@href="/explore/tabs/trending"]').click()
-
+    sleep(5)
+    driver.execute_script('window.scrollTo(0,document.body.scrollHeight);')
     sleep(5)
     trendingTopicsHTML = driver.find_element_by_xpath(
         '//div[@aria-label="Timeline: Explorar"]').get_attribute('outerHTML')
-
+    
     driver.quit()
     trendingTopicsList = []
 
@@ -46,11 +46,11 @@ def getYoutubeTredingVideos():
 
 
 
-option = int(input('Digite [1] para ver os assuntos do momento do Twitter\n Digite [2]para ver os videos em alta do Youtube\n'))
+option = int(input('Digite [1] para ver os assuntos do momento do Twitter\nDigite [2] para ver os videos em alta do Youtube\n'))
 
 while option != 1 and option != 2:
     print('Você digitou uma opção inválida!\n')
-    option = int(input(' Digite [1] para ver os assuntos do momento do Twitter\n Digite [2] para ver os videos em alta do Youtube\n'))
+    option = int(input('Digite [1] para ver os assuntos do momento do Twitter\nDigite [2] para ver os videos em alta do Youtube\n'))
 
 
 driver = webdriver.Chrome(ChromeDriverManager().install())
