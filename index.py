@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from time import sleep
-
+from webdriver_manager.chrome import ChromeDriverManager
 def getTwitterTrendingTopics():
 
     url = 'https://twitter.com/explore'
@@ -46,20 +46,18 @@ def getYoutubeTredingVideos():
 
 
 
-option = int(input(' Digite [1] para ver os assuntos do momento do Twitter\n Digite [2]para ver os videos em alta do Youtube\n'))
+option = int(input('Digite [1] para ver os assuntos do momento do Twitter\n Digite [2]para ver os videos em alta do Youtube\n'))
 
 while option != 1 and option != 2:
     print('Você digitou uma opção inválida!\n')
     option = int(input(' Digite [1] para ver os assuntos do momento do Twitter\n Digite [2] para ver os videos em alta do Youtube\n'))
 
 
-driver = webdriver.Chrome()
+driver = webdriver.Chrome(ChromeDriverManager().install())
 if option == 1:
     lista = getTwitterTrendingTopics()
 else:
     lista = getYoutubeTredingVideos()
-
-
 
 for item in lista:
     print(item)
